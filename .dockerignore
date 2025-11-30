@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+.git/
+venv/
+env/
+*.log
+DataFiles/
+DataSets/
+emojis/
+Graphs/
+training_models/
