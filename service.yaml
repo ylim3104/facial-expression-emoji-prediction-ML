@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: keras-api
+  name: ml-api
 spec:
   template:
     metadata:
@@ -9,9 +9,9 @@ spec:
         run.googleapis.com/startup-cpu-boost: "true"
     spec:
       containerConcurrency: 80
-      timeoutSeconds: 300
+      timeoutSeconds: 1000
       containers:
-      - name: ml-api-1
+      - name: ml-api
         image: us-central1-docker.pkg.dev/cool-clarity-437320-d0/keras-repo/ml-api:latest
         ports:
         - name: http1
@@ -24,6 +24,6 @@ spec:
           tcpSocket:
             port: 8000
           initialDelaySeconds: 0
-          timeoutSeconds: 30
+          timeoutSeconds: 10
           periodSeconds: 60
-          failureThreshold: 4
+          failureThreshold: 10

@@ -1,3 +1,6 @@
+import os
+
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from emotion_model import EmotionModel
@@ -40,7 +43,8 @@ async def root():
         "message": "Facial expression emoji prediction API",
         "endpoints": {
             "/health": "GET - Health check",
-            "/predict-cnn": "POST - predict cnn"
+            "/predict-cnn": "POST - predict cnn",
+            "/warmup": "GET - warm up check"
         }
     }
 
@@ -67,3 +71,7 @@ async def predict(data: ImageData):
 async def warmup():
     load_components()
     return {"status": "warmed up"}
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port, reload=False)
